@@ -447,8 +447,7 @@ body {
     max-height: 975px;
     min-height: 675px;
     text-align: center;
-    /* background-image: url('../../media/images/banner_mobile.jpg'); */
-    background-image: url('../assets/media/images/banner_mobile.jpg');
+    background-image: url('../media/images/banner_mobile.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     padding-top: 150px;
@@ -463,7 +462,7 @@ body {
 @media (min-width: 801px) {
     .heroBanner {
         border: 12px solid #ffffff;
-        background-image: url('../assets/media/images/banner.jpg');
+        background-image: url('../media/images/banner.jpg');
     }
 }
 
