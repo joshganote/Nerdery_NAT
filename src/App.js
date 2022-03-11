@@ -1,4 +1,4 @@
-import { SnackVote } from "./components/SnackVote/SnackVote";
+import { SnackPage } from "./components/SnackPage/SnackPage";
 import "./App.css";
 
 function App() {
@@ -111,7 +111,7 @@ function App() {
               </div>
             </div>
           </div>
-          <SnackVote />
+          <SnackPage />
           <div className="site-bd-section site-bd-section_gray">
             <div className="u-constrainer">
               <div className="layoutPanel">

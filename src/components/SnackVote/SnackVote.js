@@ -1,5 +1,4 @@
 import React from "react";
-import { useFetchSnacks } from "../../api/useSnacks";
 import {
   CurrentSnackContainer,
   CurrentSnackImg,
@@ -9,34 +8,28 @@ import {
 import "./snack.css";
 
 export const SnackVote = (props) => {
-  const { data, error } = useFetchSnacks();
-  console.log(`Error: ${error}`);
-
+  /**
+   * Thought I would try and show an example of a "dumb component" 
+   * to help render the current selections
+   */
   return (
-    <div className="snack-container">
-      <h1>SnackVote</h1>
-      {data.map((item, index) => (
-        // <CurrentSnackContainer>
-        //   <CurrentSnackBox>
-
-        /* <p>{item.brand}</p>
-            <p>{item.description}</p>
-            <p>{item.product}</p>
-            <p>{item.votes}</p> */
-        <div className="snack-box">
-
-          <div className="vote-corner">
-            <p className="vote-number">{item.votes}</p>
-          </div>
-
-          <div className="img-container">
-            <div className="img-inner">
-              <img className="image" src={item.image} alt={item.product} />
-            </div>
-          </div>
-
+    <>
+      <div className="snack-box">
+        <div className="vote-corner">
+          <p className="vote-number">{props.votes}</p>
         </div>
-      ))}
-    </div>
+
+        <div className="img-container">
+          <div className="img-inner">
+            <img className="image" src={props.image} alt={props.product} />
+          </div>
+        </div>
+
+        <div className="snack-info">
+          <p className="info top">{props.product}</p>
+          <p className="info bottom">{props.brand}</p>
+        </div>
+      </div>
+    </>
   );
 };
