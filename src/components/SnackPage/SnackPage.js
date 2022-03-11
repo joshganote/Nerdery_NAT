@@ -6,7 +6,15 @@ import "./SnackPage.css";
 
 export const SnackPage = () => {
   const { data } = useFetchSnacks();
+  console.log(data)
 
+  /**
+   * Sort array highest to low based on vote count
+   */
+  const dataVotes = data.sort((a,b) => {
+    return b.votes - a.votes;
+  });
+  console.log(dataVotes)
   return (
     <div className="snack-container">
       <div className="hdg-container">
@@ -21,7 +29,7 @@ export const SnackPage = () => {
       </div>
       <div className="grid-container">
         <div className="snack-grid">
-          {data.map((snack, index) => (
+          {dataVotes.map((snack, index) => (
             <SnackVote
               key={index}
               votes={snack.votes}
