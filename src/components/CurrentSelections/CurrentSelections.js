@@ -1,10 +1,10 @@
 import React from "react";
-import { SnackVote } from "../SnackVote/SnackVote";
+import { CurrentSnack } from "../CurrentSnack/CurrentSnack";
 import { useFetchSnacks } from "../../api/useSnacks";
 
-import "./SnackPage.css";
+import "./CurrentSelections.css";
 
-export const SnackPage = () => {
+export const CurrentSelections = () => {
   const { data } = useFetchSnacks();
   return (
     <div className="snack-container">
@@ -21,7 +21,7 @@ export const SnackPage = () => {
       <div className="grid-container">
         <div className="snack-grid">
           {data.map((snack, index) => (
-            <SnackVote
+            <CurrentSnack
               key={index}
               votes={snack.votes}
               image={snack.image}

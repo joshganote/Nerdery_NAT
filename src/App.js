@@ -1,4 +1,4 @@
-import { SnackPage } from "./components/SnackPage/SnackPage";
+import { CurrentSelections } from "./components/CurrentSelections/CurrentSelections";
 import "./App.css";
 
 function App() {
@@ -111,7 +111,7 @@ function App() {
               </div>
             </div>
           </div>
-          <SnackPage />
+          <CurrentSelections />
           <div className="site-bd-section site-bd-section_gray">
             <div className="u-constrainer">
               <div className="layoutPanel">
