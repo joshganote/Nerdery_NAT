@@ -1,0 +1,51 @@
+.snack-container {
+  background-image: url("../../../assets/media/images/geo.jpg");
+}
+
+.snack-box {
+  height: 200px;
+  width: 275px;
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 5px;
+}
+
+.vote-corner {
+  float: right;
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(to top right, white 50%, rgb(72, 167, 255) 50%);
+  color: white;
+}
+
+.vote-number {
+  text-align: right;
+  padding: 3px;
+  font-size: 12px;
+}
+
+.img-container {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+
+
+}
+
+.img-inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  height: auto;
+  width: 80%;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
