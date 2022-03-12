@@ -1,0 +1,75 @@
+.container2 {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.upper-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-c {
+  text-align: center;
+}
+
+.divider {
+  border: 0.5px solid black;
+}
+
+.divider_1 {
+  margin-left: 22%;
+  margin-right: 22%;
+}
+
+.divider_2 {
+}
+
+/* .selection {
+  margin-top: 1.2em;
+  padding-left: 20px;
+}
+
+.selection-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+} */
+
+.test {
+  /* width: 100%; */
+}
+
+.test2 {
+  display: flex;
+  justify-content: center;
+}
+
+.table {
+}
+
+.one {
+  width: 60%;
+}
+
+.two {
+  padding-left: 3%;
+}
+
+.hd {
+  background-color: #3d9bb3;
+}
+
+.yoo {
+  font-size: 16px;
+  color: white;
+}
+
+.count-box {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+}

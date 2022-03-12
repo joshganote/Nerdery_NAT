@@ -1,4 +1,5 @@
 import { CurrentSelections } from "./components/CurrentSelections/CurrentSelections";
+import { SnackVoting } from "./components/SnackVoting/SnackVoting";
 import "./App.css";
 
 function App() {
@@ -112,6 +113,7 @@ function App() {
             </div>
           </div>
           <CurrentSelections />
+          <SnackVoting />
           <div className="site-bd-section site-bd-section_gray">
             <div className="u-constrainer">
               <div className="layoutPanel">
