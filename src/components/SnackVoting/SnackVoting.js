@@ -32,14 +32,26 @@ const StyledAvailableItemsCount = styled(TableCell)(() => ({
 
 const StyledPlusIcon = styled(TableCell)(() => ({
   [`&.${tableCellClasses.body}`]: {
-    backgroundColor: "grey",
-    
+    // '&:nth-of-type(odd)':{
+    //   backgroundColor: "yellow",
+    // }
+    backgroundColor: "lightgray",
   },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(even)': {
+    backgroundColor: 'blue',
+  },
+  '&:nth-of-type(odd)': {
+    backgroundColor: 'grey',
+  },
+  border: 0
 }));
 
 const StyledBrandName = styled(TableCell)(() => ({
   [`&.${tableCellClasses.body}`]: {
-    backgroundColor: "yellow",
+    width: "100%",
   },
 }));
 
@@ -50,7 +62,8 @@ const StyledBrandVoteCount = styled(TableCell)(() => ({
 }));
 
 export const SnackVoting = (props) => {
-  const { data } = useFetchSnacks();
+  const { data, error } = useFetchSnacks();
+  console.log(error);
   const snackVote = data.filter((x) => x.inStock === 0);
   console.log(snackVote);
   return (
@@ -67,7 +80,7 @@ export const SnackVoting = (props) => {
       <div className="test">
         <div className="test2">
           <div className="table one">
-            <TableContainer sx={{width: "max-content"}}>
+            <TableContainer sx={{ width: "max-content" }}>
               <Table sx={{ minWidth: 250 }} aria-label="simple table">
                 <TableHead>
                   <TableRow className="hd">
@@ -82,7 +95,7 @@ export const SnackVoting = (props) => {
                   {snackVote.map((vote) => (
                     <TableRow
                       key={vote.votes}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      sx={{ border: 0 }}
                     >
                       <StyledPlusIcon>
                         <GoPlus color="white" size={18} />
@@ -91,9 +104,7 @@ export const SnackVoting = (props) => {
                         {" "}
                         {vote.brand}
                       </StyledBrandName>
-                      <StyledBrandVoteCount
-                        align="right"
-                      >
+                      <StyledBrandVoteCount align="right">
                         {" "}
                         {vote.votes}
                       </StyledBrandVoteCount>
@@ -152,6 +163,91 @@ export const SnackVoting = (props) => {
           </div>
         </div> */}
         </div>
+      </div>
+      <div className="boxxxx">
+        <div className="box2 box-size box-color_1">
+          <p className="p-txt">Available Items</p>
+          <div className="count-box">8</div>
+        </div>
+        {snackVote.map((snack, index) => (
+          <div className="box2 box-size box-color_2" key={index}>
+            <GoPlus
+              color="white"
+              size={16}
+              className="plus box-color_3"
+              onClick={() => console.log("clicked")}
+            />
+            <p className="josh">{snack.brand}</p>
+            <p className="snack">{snack.votes}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        <TableContainer>
+          <Table sx={{ minWidth: 250 }} aria-label="simple table">
+            <TableHead className="the">
+              <TableRow className="hd">
+                <StyledAvailableItems>Available Items</StyledAvailableItems>
+                <TableCell align="right"></TableCell>
+                <StyledAvailableItemsCount align="right">
+                  <div className="count-box">8</div>
+                </StyledAvailableItemsCount>
+              </TableRow>
+            </TableHead>
+            {/* <TableBody>
+                  {snackVote.map((vote) => (
+                    <TableRow
+                      key={vote.votes}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <StyledPlusIcon>
+                        <GoPlus color="white" size={18} />
+                      </StyledPlusIcon>
+                      <StyledBrandName align="left">
+                        {" "}
+                        {vote.brand}
+                      </StyledBrandName>
+                      <StyledBrandVoteCount align="right">
+                        {" "}
+                        {vote.votes}
+                      </StyledBrandVoteCount>
+                    </TableRow>
+                  ))}
+                </TableBody> */}
+          </Table>
+        </TableContainer>
+        <TableContainer>
+          <Table sx={{ minWidth: 250 }} aria-label="simple table">
+            {/* <TableHead>
+                  <TableRow className="hd">
+                    <StyledAvailableItems>Available Items</StyledAvailableItems>
+                    <TableCell align="right"></TableCell>
+                    <StyledAvailableItemsCount align="right">
+                      <div className="count-box">8</div>
+                    </StyledAvailableItemsCount>
+                  </TableRow>
+                </TableHead> */}
+            <TableBody>
+              {snackVote.map((vote) => (
+                <StyledTableRow
+                  key={vote.votes}
+                >
+                  <StyledPlusIcon component="td">
+                    <GoPlus color="white" size={25} />
+                  </StyledPlusIcon>
+                  <StyledBrandName align="left">
+                    <div className="noooo">
+                      <p>{vote.brand}</p>
+                      <p>{vote.votes}</p>
+                    </div>
+                  </StyledBrandName>
+                  {/* <StyledBrandVoteCount align="right">
+                      </StyledBrandVoteCount> */}
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
     </div>
   );

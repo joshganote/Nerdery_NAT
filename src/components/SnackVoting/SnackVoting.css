@@ -72,4 +72,105 @@
   align-items: center;
   justify-content: center;
   border-radius: 30px;
+  width: 25px;
+  height: 25px;
+  color: #3d9bb3;
+  font-size: 14px;
 }
+
+.count-color {
+
+}
+
+.boxxxx {
+  width: 55%;
+}
+
+.box2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.plus {
+  height: 35px;
+  cursor: pointer;
+  padding-left: 3px;
+}
+
+.josh {
+  text-align: left;
+  width: 90%;
+  padding-left: 10px;
+  /* background-color: yellow; */
+}
+
+.snack {
+  width: 5%;
+  /* background-color: blue; */
+}
+
+.box-color_1 {
+  background-color: #3d9bb3;
+}
+
+.box-color_2:nth-of-type(even) {
+  background-color: lightgray;
+}
+
+.box-color_2:nth-of-type(odd) {
+  background-color: grey;
+}
+
+.box-color_3:nth-of-type(even) {
+  background-color: purple;
+}
+
+/* .box-color_3:nth-of-type(odd) {
+  background-color: pink;
+} */
+
+.box-size {
+  height: 35px;
+  padding: 5px;
+}
+
+.p-txt {
+  font-size: 32px;
+  color: white;
+}
+
+.plus2:nth-of-type(even) {
+  background-color: pink;
+}
+
+.plus2:nth-of-type(odd) {
+  background-color: purple;
+}
+
+.hi {
+  display: flex;
+}
+
+
+td {
+  padding: 5px !important;
+  border: 0 !important;
+}
+
+tr {
+  border: 2px solid yellow;
+  border: 0 !important;
+}
+
+th {
+  border-bottom: 0 !important;
+}
+
+.noooo {
+  display: flex !important;
+  justify-content: space-between !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
