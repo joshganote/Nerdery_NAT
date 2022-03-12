@@ -8,158 +8,78 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 40px;
 }
 
 .text-c {
   text-align: center;
 }
 
-.divider {
-  border: 0.5px solid black;
+.text-c h1 {
+  font-size: 48px;
+  color:#626262;
 }
 
-.divider_1 {
+.text-c h2 {
+  font-size: 18px;
+  padding-top: 10px;
+  color: #B1B1B1
+}
+
+.text-c p {
+  font-size: 16px;
+  padding-top: 10px;
+  color: #B1B1B1
+}
+
+.divider {
+  border: 1px solid #626262;
   margin-left: 22%;
   margin-right: 22%;
+  margin-top: 15px;
 }
 
-.divider_2 {
+.table-section {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
-/* .selection {
-  margin-top: 1.2em;
-  padding-left: 20px;
-}
-
-.selection-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-} */
-
-.test {
-  /* width: 100%; */
-}
-
-.test2 {
+.table-align {
   display: flex;
   justify-content: center;
 }
 
-.table {
+.table-left {
+  width: 50%;
 }
 
-.one {
-  width: 60%;
-}
-
-.two {
+.table-right {
   padding-left: 3%;
+  width: 40%;
 }
 
-.hd {
-  background-color: #3d9bb3;
-}
-
-.yoo {
-  font-size: 16px;
-  color: white;
-}
-
-.count-box {
-  background-color: white;
+.circle-count {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 30px;
   width: 25px;
   height: 25px;
-  color: #3d9bb3;
   font-size: 14px;
 }
 
-.count-color {
-
+.circle-color_1 {
+  background-color: white;
+  color: #3d9bb3;
 }
 
-.boxxxx {
-  width: 55%;
-}
-
-.box2 {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.plus {
-  height: 35px;
-  cursor: pointer;
-  padding-left: 3px;
-}
-
-.josh {
-  text-align: left;
-  width: 90%;
-  padding-left: 10px;
-  /* background-color: yellow; */
-}
-
-.snack {
-  width: 5%;
-  /* background-color: blue; */
-}
-
-.box-color_1 {
+.circle-color_2 {
   background-color: #3d9bb3;
-}
-
-.box-color_2:nth-of-type(even) {
-  background-color: lightgray;
-}
-
-.box-color_2:nth-of-type(odd) {
-  background-color: grey;
-}
-
-.box-color_3:nth-of-type(even) {
-  background-color: purple;
-}
-
-/* .box-color_3:nth-of-type(odd) {
-  background-color: pink;
-} */
-
-.box-size {
-  height: 35px;
-  padding: 5px;
-}
-
-.p-txt {
-  font-size: 32px;
   color: white;
 }
 
-.plus2:nth-of-type(even) {
-  background-color: pink;
-}
-
-.plus2:nth-of-type(odd) {
-  background-color: purple;
-}
-
-.hi {
-  display: flex;
-}
-
-
 td {
   padding: 5px !important;
-  border: 0 !important;
-}
-
-tr {
-  border: 2px solid yellow;
   border: 0 !important;
 }
 
@@ -167,10 +87,23 @@ th {
   border-bottom: 0 !important;
 }
 
-.noooo {
+.brand-vote {
   display: flex !important;
   justify-content: space-between !important;
+  /* padding-left: 10px !important;
+  padding-right: 10px !important; */
+}
+
+.align_1 {
   padding-left: 10px !important;
   padding-right: 10px !important;
 }
 
+.align_2 {
+  padding: 5px !important;
+}
+
+.plus-icon {
+  border-right: .75px solid grey;
+  cursor: pointer;
+}
