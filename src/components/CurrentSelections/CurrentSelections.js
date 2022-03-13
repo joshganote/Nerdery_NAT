@@ -5,13 +5,13 @@ import { useFetchSnacks } from "../../api/useSnacks";
 import "./CurrentSelections.css";
 
 export const CurrentSelections = () => {
-  const { data } = useFetchSnacks();
+  const { currentSnacks } = useFetchSnacks();
   /**
    * I added data to the server to account for the snacks that up for vote.
    * Those snacks where then showing up in this section as well so I added this
    * filter to insure that I only mapped through data that contains a description.
    */
-  const currentSnacks = data.filter(x => x.description)
+  const current = currentSnacks.filter(x => x.description)
   return (
     <div className="snack-container">
       <div className="hdg-container">
@@ -26,7 +26,7 @@ export const CurrentSelections = () => {
       </div>
       <div className="grid-container">
         <div className="snack-grid">
-          {currentSnacks.map((snack, index) => (
+          {current.map((snack, index) => (
             <CurrentSnack
               key={index}
               votes={snack.votes}

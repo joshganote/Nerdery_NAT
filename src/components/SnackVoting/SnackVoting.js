@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useFetchSnacks } from "../../api/useSnacks";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,6 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Grid from "@mui/material/Grid";
 import { GoPlus } from "react-icons/go";
 import { styled, createTheme } from "@mui/material/styles";
+import axios from "axios";
 
 import "./SnackVoting.css";
 import { Container } from "@mui/material";
@@ -67,8 +68,8 @@ const AvailableItemsRow = styled(TableRow)(() => ({
     backgroundColor: "#E1E1E1",
   },
   "&:hover": {
-    backgroundColor: "rgba(0, 0, 0, 0.25) !important"
-},
+    backgroundColor: "rgba(0, 0, 0, 0.25) !important",
+  },
   border: 0,
 }));
 
@@ -79,29 +80,94 @@ const BrandCountCell = styled(TableCell)(() => ({
   },
 }));
 
-const SnackVoteContainer = styled(Container)(({theme}) => ({
-  width: '100px',
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  [theme.breakpoints.up('xs')]: {
-    width: '450px',
+const SnackVoteContainer = styled(Container)(({ theme }) => ({
+  width: "100px",
+  marginLeft: "auto",
+  marginRight: "auto",
+  [theme.breakpoints.up("xs")]: {
+    width: "450px",
   },
-  [theme.breakpoints.up('sm')]: {
-    width: '550px',
+  [theme.breakpoints.up("sm")]: {
+    width: "550px",
   },
-  [theme.breakpoints.up('md')]: {
-    width: '900px',
+  [theme.breakpoints.up("md")]: {
+    width: "900px",
   },
-  [theme.breakpoints.up('lg')]: {
-    width: '1000px',
+  [theme.breakpoints.up("lg")]: {
+    width: "1000px",
   },
-}))
+}));
 
 export const SnackVoting = (props) => {
-  const { data, error } = useFetchSnacks();
-  console.log(error);
-  const snackVote = data.filter((x) => x.inStock === 0);
-  console.log(snackVote);
+  const { voteSnacks, postSnackVote, selections } = useFetchSnacks();
+  // const [snackData, setSnackData] = useState([]);
+  const [addToSelection, setAddToSelection] = useState([]);
+  const [prevState, setPrevState] = ([]);
+  // let testArr = [];
+  // testArr = [...testArr, addVote]
+  // console.log(addVote, 'selections')
+  // let testArr = [];
+  // testArr.push(addVote)
+  // console.log('test Array', testArr);
+  // console.log('snack', snackData);
+
+  // console.log(selections, 'yaaaaa')
+
+  const handle = (vote) => {
+    if(vote.votes < snackVote) {}
+  }
+  /**
+   * Needed a way to filter for the snacks that I added in the server config snacks array.
+   * I didn't see a list of snacks that represented what was in the Available Items Section
+   * from the design mockup so I added some data. Since these snacks technically are not inStock
+   * I used that key with a value of 0. Since the POST route is looking for matching id's in
+   * the snacks array this was the only way I thought I could use in order to increment the votes
+   * by one each time it is selected.
+   */
+  const snackVote = voteSnacks.filter((x) => x.inStock === 0);
+  // const test = voteSnacks.find((t) => t.votes +1);
+  // console.log(test)
+  // useEffect(() => {
+  //   const test = voteSnacks.find((t) => t.votes + 1);
+  //   console.log(test)
+  // }, [voteSnacks])
+  // setAddToSelection(state => [...state, test])
+
+  // const yooooooooo = (vote) => {
+  //   if (test) {
+  //     // console.log('hiiiiiii')
+  //     const newSelection = (vote) => setAddToSelection(state => [...state, vote]);
+  //   }
+  //   (vote) => setAddToSelection(state => [...state, vote]);
+  // }
+
+  // console.log(yooooooooo, 'yoooooooo')
+
+  // const voteCount = voteSnacks.filter((t) => t.votes === t.votes ++);
+  // console.log(voteCount.votes)
+  // let yoArr = [];
+
+  // useEffect(() => {
+  // },[])
+
+  // const newTest = () => {
+  //   if (voteCount ++) {
+  //     return yoArr.push(voteCount)
+  //   }
+  // }
+
+  // console.log(yoArr, 'ypArr')
+
+  // const test = voteSnacks.find((t) => t.votes +1);
+  //   if(test) {
+  //     setAddToSelection(() => prev => [...prev, test])
+  //   }
+
+  const newSelection = () => {
+    setAddToSelection(snackVote);
+    console.log(addToSelection)
+  };
+
 
   return (
     <SnackVoteContainer>
@@ -136,10 +202,15 @@ export const SnackVoting = (props) => {
                   <Table aria-label="simple table">
                     <TableBody>
                       {snackVote.map((vote) => (
-                        <AvailableItemsRow key={vote.votes}>
+                        <AvailableItemsRow key={vote.id}>
                           <div className="plus-icon">
                             <TableCell>
-                              <GoPlus color="white" size={25} />
+                              <GoPlus
+                                color="white"
+                                size={25}
+                                onClick={() => postSnackVote(vote)}
+                                onClickCapture={() => newSelection()}
+                              />
                             </TableCell>
                           </div>
                           <BrandCountCell>
@@ -173,7 +244,7 @@ export const SnackVoting = (props) => {
                   <Table sx={{ minWidth: 250 }} aria-label="simple table">
                     <TableBody>
                       {snackVote.map((vote) => (
-                        <TableRow key={vote.votes} sx={{ border: 0 }}>
+                        <TableRow key={vote.id} sx={{ border: 0 }}>
                           <BrandCountCell sx={{ padding: 0 }}>
                             <div className="brand-vote align_2">
                               <p>{vote.brand}</p>
