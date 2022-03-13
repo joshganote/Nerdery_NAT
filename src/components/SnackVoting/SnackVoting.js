@@ -6,10 +6,24 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Grid from "@mui/material/Grid";
 import { GoPlus } from "react-icons/go";
-import { styled } from "@mui/material/styles";
+import { styled, createTheme } from "@mui/material/styles";
 
 import "./SnackVoting.css";
+import { Container } from "@mui/material";
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+});
 
 const AvailableItemsCell = styled(TableCell)(() => ({
   [`&.${tableCellClasses.head}`]: {
@@ -45,13 +59,16 @@ const AvailableCountCell = styled(TableCell)(() => ({
   },
 }));
 
-const AvailableItemsRow = styled(TableRow)(({ theme }) => ({
+const AvailableItemsRow = styled(TableRow)(() => ({
   "&:nth-of-type(even)": {
     backgroundColor: "#CFCFCF",
   },
   "&:nth-of-type(odd)": {
     backgroundColor: "#E1E1E1",
   },
+  "&:hover": {
+    backgroundColor: "rgba(0, 0, 0, 0.25) !important"
+},
   border: 0,
 }));
 
@@ -62,13 +79,32 @@ const BrandCountCell = styled(TableCell)(() => ({
   },
 }));
 
+const SnackVoteContainer = styled(Container)(({theme}) => ({
+  width: '100px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  [theme.breakpoints.up('xs')]: {
+    width: '450px',
+  },
+  [theme.breakpoints.up('sm')]: {
+    width: '550px',
+  },
+  [theme.breakpoints.up('md')]: {
+    width: '900px',
+  },
+  [theme.breakpoints.up('lg')]: {
+    width: '1000px',
+  },
+}))
+
 export const SnackVoting = (props) => {
   const { data, error } = useFetchSnacks();
   console.log(error);
   const snackVote = data.filter((x) => x.inStock === 0);
   console.log(snackVote);
+
   return (
-    <div className="container2">
+    <SnackVoteContainer>
       <div className="upper-align">
         <div className="text-c">
           <h1>Snack Voting</h1>
@@ -80,74 +116,80 @@ export const SnackVoting = (props) => {
       </div>
       <div className="table-section">
         <div className="table-align">
-          <div className="table-left">
-            <TableContainer>
-              <Table sx={{ minWidth: 250 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow sx={{ backgroundColor: '#3d9bb3'}}>
-                    <AvailableItemsCell>Available Items</AvailableItemsCell>
-                    <TableCell></TableCell>
-                    <AvailableItemsCount>
-                      <div className="circle-count circle-color_1">8</div>
-                    </AvailableItemsCount>
-                  </TableRow>
-                </TableHead>
-              </Table>
-            </TableContainer>
-            <TableContainer>
-              <Table sx={{ minWidth: 250 }} aria-label="simple table">
-                <TableBody>
-                  {snackVote.map((vote) => (
-                    <AvailableItemsRow key={vote.votes}>
-                      <div className="plus-icon">
-                        <TableCell>
-                          <GoPlus color="white" size={25} />
-                        </TableCell>
-                      </div>
-                      <BrandCountCell>
-                        <div className="brand-vote align_1">
-                          <p>{vote.brand}</p>
-                          <p>{vote.votes}</p>
-                        </div>
-                      </BrandCountCell>
-                    </AvailableItemsRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-          <div className="table-right">
-            <TableContainer>
-              <Table sx={{ minWidth: 250 }} aria-label="simple table">
-                <TableHead>
-                  <TableRow sx={{ borderBottom: "1.5px solid #B1B1B1" }}>
-                    <SelectionCell>Selection</SelectionCell>
-                    <AvailableCountCell>
-                      <div className="circle-count circle-color_2">8</div>
-                    </AvailableCountCell>
-                  </TableRow>
-                </TableHead>
-              </Table>
-            </TableContainer>
-            <TableContainer>
-              <Table sx={{ minWidth: 250 }} aria-label="simple table">
-                <TableBody>
-                  {snackVote.map((vote) => (
-                    <TableRow key={vote.votes} sx={{ border: 0}}>
-                      <BrandCountCell sx={{ padding: 0 }}>
-                        <div className="brand-vote align_2">
-                          <p>{vote.brand}</p>
-                          <p>{vote.votes}</p>
-                        </div>
-                      </BrandCountCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
+          <Grid container spacing={2}>
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              <div className="table-left">
+                <TableContainer>
+                  <Table aria-label="simple table">
+                    <TableHead>
+                      <TableRow sx={{ backgroundColor: "#3d9bb3" }}>
+                        <AvailableItemsCell>Available Items</AvailableItemsCell>
+                        <TableCell></TableCell>
+                        <AvailableItemsCount>
+                          <div className="circle-count circle-color_1">8</div>
+                        </AvailableItemsCount>
+                      </TableRow>
+                    </TableHead>
+                  </Table>
+                </TableContainer>
+                <TableContainer>
+                  <Table aria-label="simple table">
+                    <TableBody>
+                      {snackVote.map((vote) => (
+                        <AvailableItemsRow key={vote.votes}>
+                          <div className="plus-icon">
+                            <TableCell>
+                              <GoPlus color="white" size={25} />
+                            </TableCell>
+                          </div>
+                          <BrandCountCell>
+                            <div className="brand-vote align_1">
+                              <p>{vote.brand}</p>
+                              <p>{vote.votes}</p>
+                            </div>
+                          </BrandCountCell>
+                        </AvailableItemsRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+            </Grid>
+            <Grid item lg={6} md={6} sm={12} xs={12}>
+              <div className="table-right">
+                <TableContainer>
+                  <Table sx={{ minWidth: 250 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow sx={{ borderBottom: "1.5px solid #B1B1B1" }}>
+                        <SelectionCell>Selection</SelectionCell>
+                        <AvailableCountCell>
+                          <div className="circle-count circle-color_2">8</div>
+                        </AvailableCountCell>
+                      </TableRow>
+                    </TableHead>
+                  </Table>
+                </TableContainer>
+                <TableContainer>
+                  <Table sx={{ minWidth: 250 }} aria-label="simple table">
+                    <TableBody>
+                      {snackVote.map((vote) => (
+                        <TableRow key={vote.votes} sx={{ border: 0 }}>
+                          <BrandCountCell sx={{ padding: 0 }}>
+                            <div className="brand-vote align_2">
+                              <p>{vote.brand}</p>
+                              <p>{vote.votes}</p>
+                            </div>
+                          </BrandCountCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+            </Grid>
+          </Grid>
         </div>
       </div>
-    </div>
+    </SnackVoteContainer>
   );
 };
