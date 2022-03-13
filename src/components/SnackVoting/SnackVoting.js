@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import { GoPlus } from "react-icons/go";
 import { styled, createTheme } from "@mui/material/styles";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 import "./SnackVoting.css";
 import { Container } from "@mui/material";
@@ -99,10 +100,11 @@ const SnackVoteContainer = styled(Container)(({ theme }) => ({
 }));
 
 export const SnackVoting = (props) => {
+  const snack = useSelector((state) => state.snack.value);
   const { voteSnacks, postSnackVote, selections } = useFetchSnacks();
   // const [snackData, setSnackData] = useState([]);
   const [addToSelection, setAddToSelection] = useState([]);
-  const [prevState, setPrevState] = ([]);
+  const [prevState, setPrevState] = [];
   // let testArr = [];
   // testArr = [...testArr, addVote]
   // console.log(addVote, 'selections')
@@ -114,8 +116,9 @@ export const SnackVoting = (props) => {
   // console.log(selections, 'yaaaaa')
 
   const handle = (vote) => {
-    if(vote.votes < snackVote) {}
-  }
+    if (vote.votes < snackVote) {
+    }
+  };
   /**
    * Needed a way to filter for the snacks that I added in the server config snacks array.
    * I didn't see a list of snacks that represented what was in the Available Items Section
@@ -165,9 +168,8 @@ export const SnackVoting = (props) => {
 
   const newSelection = () => {
     setAddToSelection(snackVote);
-    console.log(addToSelection)
+    console.log(addToSelection);
   };
-
 
   return (
     <SnackVoteContainer>
@@ -259,6 +261,16 @@ export const SnackVoting = (props) => {
               </div>
             </Grid>
           </Grid>
+        </div>
+        <div>
+          {snack.map((item) => (
+            <>
+              <p>{item.id}</p>
+              <p>{item.brand}</p>
+              <p>{item.votes}</p>
+              <p>{item.inStock}</p>
+            </>
+          ))}
         </div>
       </div>
     </SnackVoteContainer>

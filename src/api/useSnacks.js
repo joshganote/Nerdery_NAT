@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux"
 import axios from "axios";
+import { getSnack } from "../redux/features/snackSelectionReducer";
 
 const authToken = "33b55673-57c7-413f-83ed-5b4ae8d18827";
 
 export const useFetchSnacks = () => {
+  const dispatch = useDispatch();
   const [currentSnacks, setCurrentSnacks] = useState([]);
   const [voteSnacks, setVoteSnacks] = useState([]);
   const [selections, setSelections] = useState([]);
@@ -21,9 +24,9 @@ export const useFetchSnacks = () => {
     }
   }
 
-  const getSnack = () => {
+  const getSnack = async () => {
     setLoading(true);
-    axios
+    const response = axios
       .get("http://localhost:3001/snacks", {
         headers: { Authorization: `Bearer ${authToken}` },
       })
@@ -57,10 +60,11 @@ export const useFetchSnacks = () => {
       .finally(() => {
         setLoading(false);
       });
+      dispatch(getSnack(currentSnacks, voteSnacks));
   };
 
-  const postSnackVote = (snack) => {
-    axios
+  const postSnackVote = async (snack) => {
+    const response = axios
       .post(
         `http://localhost:3001/snacks/vote/${snack.id}`,
         {},
@@ -78,6 +82,7 @@ export const useFetchSnacks = () => {
       .finally(() => {
         setLoading(false);
       });
+      return response
   };
 
   return { currentSnacks, voteSnacks, loading, error, postSnackVote, selections,  };
