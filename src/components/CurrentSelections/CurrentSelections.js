@@ -1,12 +1,17 @@
 import React from "react";
-import { SnackVote } from "../SnackVote/SnackVote";
+import { CurrentSnack } from "../CurrentSnack/CurrentSnack";
 import { useFetchSnacks } from "../../api/useSnacks";
 
-import "./SnackPage.css";
+import "./CurrentSelections.css";
 
-export const SnackPage = () => {
-  const { data } = useFetchSnacks();
-
+export const CurrentSelections = () => {
+  const { currentSnacks } = useFetchSnacks();
+  /**
+   * I added data to the server to account for the snacks that up for vote.
+   * Those snacks where then showing up in this section as well so I added this
+   * filter to insure that I only mapped through data that contains a description.
+   */
+  const current = currentSnacks.filter(x => x.description)
   return (
     <div className="snack-container">
       <div className="hdg-container">
@@ -21,8 +26,8 @@ export const SnackPage = () => {
       </div>
       <div className="grid-container">
         <div className="snack-grid">
-          {data.map((snack, index) => (
-            <SnackVote
+          {current.map((snack, index) => (
+            <CurrentSnack
               key={index}
               votes={snack.votes}
               image={snack.image}

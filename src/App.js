@@ -1,4 +1,6 @@
-import { SnackPage } from "./components/SnackPage/SnackPage";
+import { CurrentSelections } from "./components/CurrentSelections/CurrentSelections";
+import { SnackVoting } from "./components/SnackVoting/SnackVoting";
+
 import "./App.css";
 
 function App() {
@@ -111,7 +113,8 @@ function App() {
               </div>
             </div>
           </div>
-          <SnackPage />
+          <CurrentSelections />
+          <SnackVoting />
           <div className="site-bd-section site-bd-section_gray">
             <div className="u-constrainer">
               <div className="layoutPanel">
@@ -141,7 +144,10 @@ function App() {
                           />
                         </div>
                         <div className="inputForm-item inputForm-item_half">
-                          <label className="u-isVisuallyHidden" htmlFor="form-lastname">
+                          <label
+                            className="u-isVisuallyHidden"
+                            htmlFor="form-lastname"
+                          >
                             Last Name
                           </label>
                           <input
@@ -152,7 +158,10 @@ function App() {
                           />
                         </div>
                         <div className="inputForm-item inputForm-item_half">
-                          <label className="u-isVisuallyHidden" htmlFor="form-email">
+                          <label
+                            className="u-isVisuallyHidden"
+                            htmlFor="form-email"
+                          >
                             Email
                           </label>
                           <input
@@ -177,7 +186,10 @@ function App() {
                           />
                         </div>
                         <div className="inputForm-item">
-                          <label className="u-isVisuallyHidden" htmlFor="form-message">
+                          <label
+                            className="u-isVisuallyHidden"
+                            htmlFor="form-message"
+                          >
                             Message
                           </label>{" "}
                           <textarea
