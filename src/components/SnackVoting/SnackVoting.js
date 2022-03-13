@@ -101,19 +101,21 @@ const SnackVoteContainer = styled(Container)(({ theme }) => ({
   },
 }));
 
-export const SnackVoting = (props) => {
+export const SnackVoting = () => {
   /**
    * TODO Redux Documentation
    */
   // const snackList = useSelector(state => state.snacks);
   // const dispatch = useDispatch();
-  // console.log(snackList);
 
-  const { voteSnacks, postSnackVote, selections } = useFetchSnacks();
-  const [snackData, setSnackData] = useState([]);
+  const { voteSnacks, postSnackVote, error } = useFetchSnacks();
   const [addToSelection, setAddToSelection] = useState([]);
+  /**
+   * Even though the user only gets 3 votes, Im trying to check for how many votes are left in my POST request.
+   * If I set the default value to 3 then when I add a vote my vote count starts at 2 in my if checker for the POST
+   * request which makes since because it's getting a current shot of that state. Im trying to compensate for that by starting with 4 and subtracting 1. Doubt this is best practice but it'll do for now.
+   */
   const [numOfVotes, setNumOfVotes] = useState(3);
-  const [prevState, setPrevState] = [];
 
   /**
    * Needed a way to filter for the snacks that I added in the server config snacks array.
@@ -125,35 +127,27 @@ export const SnackVoting = (props) => {
    */
   const snackVote = voteSnacks.filter((x) => x.inStock === 0);
 
-  // const toManyVote = () => {
-  //   if (numOfVotes === 0) {
-  //     console.log(numOfVotes)
-  //     return(
-  //       <>
-  //         <p>Test</p>
-  //       </>
-  //     );
-  //   } else {
-  //     return(<></>);
-  //   }
-  // };
-
   const newSelection = (vote) => {
     if (numOfVotes > 0) {
       setNumOfVotes(numOfVotes - 1);
 
       /**
-       * Trying to find a way to check previous state with the new state when a selection is voted on
-       * trying to compare the old array with what is being returned from the the post request to I can
-       * push the incoming new totals into an array to then show in the Selection table
-       */
+         * Trying to find a way to check previous state with the new state when a selection is voted on
+         * trying to compare the old array with what is being returned from the the post request to I can
+        //  * push the incoming new totals into an array to then show in the Selection table
+        //  */
       setAddToSelection((state) => [...state, vote]);
     }
   };
 
+  /**
+   * Im using the addToSelection array to push the selected snack into. My guess from the UI mock up was to have what
+   * the user voted for showing the table to the right. This is my attempt to grab that data and check for matching id's.
+   * If the id's match then don't show it a second time.
+   */
   const uniqueSnacks = Array.from(new Set(addToSelection.map((a) => a.id))).map(
     (id) => {
-      return addToSelection.find((a) => a.id === id);
+      return voteSnacks.find((a) => a.id === id);
     }
   );
 
@@ -165,7 +159,7 @@ export const SnackVoting = (props) => {
           <h2>Vote on the snacks you want to see in this month's rotation</h2>
           <div className="divider"></div>
           <p>{`${numOfVotes}`} Votes Remaining</p>
-          {numOfVotes === 0 && <VoteLimitExceeded />}
+          {error !== null && error}
         </div>
       </div>
       <div className="table-section">
@@ -198,7 +192,7 @@ export const SnackVoting = (props) => {
                               <GoPlus
                                 color="white"
                                 size={25}
-                                onClick={() => postSnackVote(vote)}
+                                onClick={() => postSnackVote(vote, numOfVotes)}
                                 onClickCapture={() => newSelection(vote)}
                               />
                             </TableCell>

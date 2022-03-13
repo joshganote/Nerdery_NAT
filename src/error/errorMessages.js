@@ -15,3 +15,17 @@ export const VoteLimitExceeded = () => {
     </>
   );
 };
+
+export const DuplicateSnackSelection = () => {
+  /**
+   * Would use an error message similar to how I implemented the one above if I could've figured
+   * out how to conditionally render the selection table list without duplicate votes being counted.
+   */
+   let nextMonth = addMonths(new Date(), 1).toLocaleDateString();
+  return (
+    <>
+      <p>We love that you are excited about the upcoming snack selections!</p>
+      <p>You will need to come back on {`${nextMonth}`} to vote again.</p>
+    </>
+  );
+};

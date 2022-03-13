@@ -112,6 +112,6 @@ th {
 }
 
 .plus-icon {
-  border-right: 0.75px solid grey;
+  border: .9px solid grey;
   cursor: pointer;
 }

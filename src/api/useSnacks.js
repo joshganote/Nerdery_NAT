@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { VoteLimitExceeded } from "../error/errorMessages";
 // import { getSnack } from "../redux/slice/snackSlice";
 
+/**
+ * Could probably through this in an .env file but Im just going to keep it simple.
+ */
 const authToken = "33b55673-57c7-413f-83ed-5b4ae8d18827";
+
 export const useFetchSnacks = () => {
   // const dispatch = useDispatch();
   const [currentSnacks, setCurrentSnacks] = useState([]);
   const [voteSnacks, setVoteSnacks] = useState([]);
-  const [selections, setSelections] = useState([]);
   const [voteCount, setVoteCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     getSnacks();
-      setVoteCount(state => (state +1));
-  }, [voteCount]);
-
-  console.log(voteCount)
-  // const filterSnack = () => {
-  //   const test2 = voteSnacks.filter(v => v.votes +1)
-  //   if(test2) {
-  //     return
-  //   }
-  // }
+  }, []);
 
   const getSnacks = () => {
     setLoading(true);
@@ -57,7 +52,7 @@ export const useFetchSnacks = () => {
         setVoteSnacks(sortAlphabetically);
       })
       /**
-       *  TODO Document Redux
+       *  Trying to use Redux here to store snacks in reducer
        */
       // .then((res) => {
       //   dispatch(getSnack(res.data));
@@ -71,30 +66,31 @@ export const useFetchSnacks = () => {
   };
 
   const postSnackVote = (snack) => {
-    if (snack) {
-      setVoteCount(+1);
-      console.log(voteCount);
+    if (voteCount < 3) {
+      setVoteCount(voteCount + 1);
+
+      const response = axios
+        .post(
+          `http://localhost:3001/snacks/vote/${snack.id}`,
+          {},
+          { headers: { Authorization: `Bearer ${authToken}` } }
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .then(() => {
+          getSnacks();
+        })
+        .catch((err) => {
+          setError(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+      return response;
+    } else {
+      return setError(<VoteLimitExceeded />);
     }
-    console.log(test);
-    const response = axios
-      .post(
-        `http://localhost:3001/snacks/vote/${snack.id}`,
-        {},
-        { headers: { Authorization: `Bearer ${authToken}` } }
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .then(() => {
-        getSnacks();
-      })
-      .catch((err) => {
-        setError(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-    return response;
   };
 
   return {
@@ -103,6 +99,5 @@ export const useFetchSnacks = () => {
     loading,
     error,
     postSnackVote,
-    selections,
   };
 };
