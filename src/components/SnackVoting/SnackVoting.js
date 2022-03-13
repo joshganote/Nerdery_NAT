@@ -10,10 +10,12 @@ import Grid from "@mui/material/Grid";
 import { GoPlus } from "react-icons/go";
 import { styled, createTheme } from "@mui/material/styles";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { VoteLimitExceeded } from "../../error/errorMessages";
+import { Container } from "@mui/material";
+import { getAllSnacks } from "../../redux/slice/snackSlice";
 
 import "./SnackVoting.css";
-import { Container } from "@mui/material";
 
 const theme = createTheme({
   breakpoints: {
@@ -100,25 +102,19 @@ const SnackVoteContainer = styled(Container)(({ theme }) => ({
 }));
 
 export const SnackVoting = (props) => {
-  const snack = useSelector((state) => state.snack.value);
+  /**
+   * TODO Redux Documentation
+   */
+  // const snackList = useSelector(state => state.snacks);
+  // const dispatch = useDispatch();
+  // console.log(snackList);
+
   const { voteSnacks, postSnackVote, selections } = useFetchSnacks();
-  // const [snackData, setSnackData] = useState([]);
+  const [snackData, setSnackData] = useState([]);
   const [addToSelection, setAddToSelection] = useState([]);
+  const [numOfVotes, setNumOfVotes] = useState(3);
   const [prevState, setPrevState] = [];
-  // let testArr = [];
-  // testArr = [...testArr, addVote]
-  // console.log(addVote, 'selections')
-  // let testArr = [];
-  // testArr.push(addVote)
-  // console.log('test Array', testArr);
-  // console.log('snack', snackData);
 
-  // console.log(selections, 'yaaaaa')
-
-  const handle = (vote) => {
-    if (vote.votes < snackVote) {
-    }
-  };
   /**
    * Needed a way to filter for the snacks that I added in the server config snacks array.
    * I didn't see a list of snacks that represented what was in the Available Items Section
@@ -128,48 +124,38 @@ export const SnackVoting = (props) => {
    * by one each time it is selected.
    */
   const snackVote = voteSnacks.filter((x) => x.inStock === 0);
-  // const test = voteSnacks.find((t) => t.votes +1);
-  // console.log(test)
-  // useEffect(() => {
-  //   const test = voteSnacks.find((t) => t.votes + 1);
-  //   console.log(test)
-  // }, [voteSnacks])
-  // setAddToSelection(state => [...state, test])
 
-  // const yooooooooo = (vote) => {
-  //   if (test) {
-  //     // console.log('hiiiiiii')
-  //     const newSelection = (vote) => setAddToSelection(state => [...state, vote]);
+  // const toManyVote = () => {
+  //   if (numOfVotes === 0) {
+  //     console.log(numOfVotes)
+  //     return(
+  //       <>
+  //         <p>Test</p>
+  //       </>
+  //     );
+  //   } else {
+  //     return(<></>);
   //   }
-  //   (vote) => setAddToSelection(state => [...state, vote]);
-  // }
+  // };
 
-  // console.log(yooooooooo, 'yoooooooo')
+  const newSelection = (vote) => {
+    if (numOfVotes > 0) {
+      setNumOfVotes(numOfVotes - 1);
 
-  // const voteCount = voteSnacks.filter((t) => t.votes === t.votes ++);
-  // console.log(voteCount.votes)
-  // let yoArr = [];
-
-  // useEffect(() => {
-  // },[])
-
-  // const newTest = () => {
-  //   if (voteCount ++) {
-  //     return yoArr.push(voteCount)
-  //   }
-  // }
-
-  // console.log(yoArr, 'ypArr')
-
-  // const test = voteSnacks.find((t) => t.votes +1);
-  //   if(test) {
-  //     setAddToSelection(() => prev => [...prev, test])
-  //   }
-
-  const newSelection = () => {
-    setAddToSelection(snackVote);
-    console.log(addToSelection);
+      /**
+       * Trying to find a way to check previous state with the new state when a selection is voted on
+       * trying to compare the old array with what is being returned from the the post request to I can
+       * push the incoming new totals into an array to then show in the Selection table
+       */
+      setAddToSelection((state) => [...state, vote]);
+    }
   };
+
+  const uniqueSnacks = Array.from(new Set(addToSelection.map((a) => a.id))).map(
+    (id) => {
+      return addToSelection.find((a) => a.id === id);
+    }
+  );
 
   return (
     <SnackVoteContainer>
@@ -178,8 +164,8 @@ export const SnackVoting = (props) => {
           <h1>Snack Voting</h1>
           <h2>Vote on the snacks you want to see in this month's rotation</h2>
           <div className="divider"></div>
-          {/* Will need to make this vote count dynamic */}
-          <p>3 Votes Remaining</p>
+          <p>{`${numOfVotes}`} Votes Remaining</p>
+          {numOfVotes === 0 && <VoteLimitExceeded />}
         </div>
       </div>
       <div className="table-section">
@@ -194,7 +180,9 @@ export const SnackVoting = (props) => {
                         <AvailableItemsCell>Available Items</AvailableItemsCell>
                         <TableCell></TableCell>
                         <AvailableItemsCount>
-                          <div className="circle-count circle-color_1">8</div>
+                          <div className="circle-count circle-color_1">
+                            {snackVote.length}
+                          </div>
                         </AvailableItemsCount>
                       </TableRow>
                     </TableHead>
@@ -211,7 +199,7 @@ export const SnackVoting = (props) => {
                                 color="white"
                                 size={25}
                                 onClick={() => postSnackVote(vote)}
-                                onClickCapture={() => newSelection()}
+                                onClickCapture={() => newSelection(vote)}
                               />
                             </TableCell>
                           </div>
@@ -236,7 +224,9 @@ export const SnackVoting = (props) => {
                       <TableRow sx={{ borderBottom: "1.5px solid #B1B1B1" }}>
                         <SelectionCell>Selection</SelectionCell>
                         <AvailableCountCell>
-                          <div className="circle-count circle-color_2">8</div>
+                          <div className="circle-count circle-color_2">
+                            {addToSelection.length}
+                          </div>
                         </AvailableCountCell>
                       </TableRow>
                     </TableHead>
@@ -245,7 +235,7 @@ export const SnackVoting = (props) => {
                 <TableContainer>
                   <Table sx={{ minWidth: 250 }} aria-label="simple table">
                     <TableBody>
-                      {snackVote.map((vote) => (
+                      {uniqueSnacks.map((vote) => (
                         <TableRow key={vote.id} sx={{ border: 0 }}>
                           <BrandCountCell sx={{ padding: 0 }}>
                             <div className="brand-vote align_2">
@@ -262,17 +252,40 @@ export const SnackVoting = (props) => {
             </Grid>
           </Grid>
         </div>
-        <div>
-          {snack.map((item) => (
-            <>
-              <p>{item.id}</p>
-              <p>{item.brand}</p>
-              <p>{item.votes}</p>
-              <p>{item.inStock}</p>
-            </>
-          ))}
-        </div>
       </div>
     </SnackVoteContainer>
   );
 };
+
+// let testArr = [];
+// testArr = [...testArr, addVote]
+// console.log(addVote, 'selections')
+// let testArr = [];
+// testArr.push(addVote)
+// console.log('test Array', testArr);
+// console.log('snack', snackData);
+
+// console.log(selections, 'yaaaaa')
+
+// const handle = (vote) => {
+//   if (vote.votes < snackVote) {
+//   }
+// };
+
+// const test = voteSnacks.find((t) => t.votes +1);
+// console.log(test)
+// useEffect(() => {
+//   const test = voteSnacks.find((t) => t.votes + 1);
+//   console.log(test)
+// }, [voteSnacks])
+// setAddToSelection(state => [...state, test])
+
+// const test = voteSnacks.find((t) => t.votes +1);
+//   if(test) {
+//     setAddToSelection(() => prev => [...prev, test])
+//   }
+
+// const newSelection = () => {
+//   setAddToSelection(snackVote);
+//   console.log(addToSelection);
+// };

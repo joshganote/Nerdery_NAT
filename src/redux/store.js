@@ -1,8 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
-import snackSelectionSlice from './features/snackSelectionReducer';
+import {} from "redux"
+import snack from "./slice/snackSlice";
+import snacks from "./slice/snackSlices";
 
-export default configureStore({
+
+const store =  configureStore({
   reducer: {
-    snack: snackSelectionSlice,
+    snack,
+    snacks
   }
 })
+
+export default store;
