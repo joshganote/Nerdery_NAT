@@ -705,3 +705,14 @@ body {
 .site-ft {
     border-top: 1px solid #acacac;
 }
+
+.voteBtn {
+    text-decoration: none;
+    color: white;
+}
+
+.voteBtn:hover {
+    text-decoration: none;
+    color: inherit;
+    scroll-behavior: smooth;
+}
