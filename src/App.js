@@ -1,8 +1,16 @@
 import { SnackHome } from "./components/SnackHome/SnackHome";
 
 import "./App.css";
+import { color } from "@mui/system";
 
 function App() {
+
+  const handleClick = e => {
+    e.preventDefault();
+    document
+      .getElementById(e.currentTarget.hash.slice(1))
+      .scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <>
       <div className="u-isHidden">
@@ -107,12 +115,14 @@ function App() {
                   </p>
                 </div>
                 <div className="heroBanner-content-ft">
-                  <button className="btn">Vote Now</button>
+                  <button className="btn"><a href="#vote" onClick={handleClick} className="voteBtn">Vote Now</a></button>
                 </div>
               </div>
             </div>
           </div>
+          <section id="vote">
           <SnackHome />
+          </section>
           <div className="site-bd-section site-bd-section_gray">
             <div className="u-constrainer">
               <div className="layoutPanel">
