@@ -1,0 +1,36 @@
+.hero-maintenance {
+  display: flex;
+  align-items: center;
+  height: 90vh;
+  max-height: 975px;
+  min-height: 675px;
+  text-align: center;
+  background-image: url("../../../assets/media/images/vendingMachineLrg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (min-width: 401px) {
+  .hero-maintenance  {
+    box-sizing: border-box;
+    background-image: url("../../../assets/media/images/vendingMachineSm.jpg");
+  }
+}
+
+@media (min-width: 801px) {
+  .hero-maintenance {
+    border: 12px solid #ffffff;
+    background-image: url("../../../assets/media/images/vendingMachineLrg.jpg");
+  }
+}
+
+@media (min-width: 1841px) {
+   .hero-maintenance  {
+    border-width: 0;
+  }
+}
+
+.bck {
+  background-color: rgb(215, 211, 218, .9);
+  padding: 20px;
+}

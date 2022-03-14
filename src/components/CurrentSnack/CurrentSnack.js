@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  CurrentSnackContainer,
-  CurrentSnackImg,
-  CurrentSnackBox,
-} from "./CurrentSnackStyled";
 
 import "./CurrentSnack.css";
 
