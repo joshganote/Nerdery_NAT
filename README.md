@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+# Nerdery Frontend Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Thank you for giving me the opportunity to apply for this position. With this project I hope you get an understanding of my current programming knowledge and passion for React.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+* Install Node.js, version >= 10.0.0
+* From a terminal in the server folder, run the `npm install` command
+* Once complete, run `npm start` to start the server on port 3000
 
-### `npm start`
+## Frontend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+I just wanted to start off a say that I really enjoyed working through this challenge. After going through a couple challenges with job seeking in the past this one was the most clear with what the functionality and visual requirements where. 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+External Libraries used:
+- Axios
+- Material UI
+- React Icons
+- Redux
 
-### `npm test`
+I hope you find the code comments left in the files will help you understand my goal with some of the functions I wrote and my thought process while using them. If I had more time on this project there are some things that I would have liked to have done. I would have liked to have dug deeper into Redux to better use reducers to store data from api requests and used that to help manage state changes with the user voting. I also would've moved all the text into global library file and used that context throughout the app.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## The API
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I made a couple changes to the Nerdery_Server to help with this challenge. I changed the port to 3001 and I felt I needed to add more data to the snacks array in the config.js file. The UI mock up files showed snacks in the Snack Voting section that I couldn't find in the Nerdery_Server config.js file. In my frontend application I added a api/snackData file to show you what I added. The POST call in the snacks route is looking for an id to match from what the user sends to what is available on the server. I wasn't sure how to account for this with what I saw in the starter files so you will need to add those objects I created in the api/snackData file to the snacks array in the Nerder_Server routes/snacks in order for the application to run correctly. That may have been out of scope for the project and if I did miss where that data was supposed to be coming from I do apologize.

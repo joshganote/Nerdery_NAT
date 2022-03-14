@@ -1,17 +1,3 @@
-.container2 {
-  width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media screen and (max-width: 980px) {
-  .container2 {
-    width: 1000px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
 .upper-align {
   display: flex;
   align-items: center;
@@ -52,19 +38,6 @@
   margin-bottom: 40px;
 }
 
-/* .table-align {
-  display: flex;
-  justify-content: center;
-} */
-
-/* .table-left {
-  width: 50%;
-}
-
-.table-right {
-  width: 40%;
-} */
-
 .circle-count {
   display: flex;
   align-items: center;
@@ -97,8 +70,6 @@ th {
 .brand-vote {
   display: flex !important;
   justify-content: space-between !important;
-  /* padding-left: 10px !important;
-  padding-right: 10px !important; */
 }
 
 .align_1 {
@@ -111,6 +82,7 @@ th {
 }
 
 .plus-icon {
-  border: .9px solid grey;
+  border: .8px solid white;
+  margin: 3px;
   cursor: pointer;
 }
