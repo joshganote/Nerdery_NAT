@@ -7,7 +7,7 @@ export const Maintenance = () => {
     <div className="site-bd-section">
       <div className="hero-maintenance">
         <div className="heroBanner-content u-constrainer">
-          <div className="bck">
+          <div className="bck-g">
             <div className="heroBanner-content-hd">
               <h1 className="hdg hdg_1">
                 Nerdery Snack Voting System Is Down

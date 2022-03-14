@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 import { VoteLimitExceeded } from "../error/errorMessages";
-// import { getSnack } from "../redux/slice/snackSlice";
+// import { setSnackSlice } from "../redux/slice/snackSlice";
+// import { useDispatch } from "react-redux";
 
 /**
  * Could probably through this in an .env file but Im just going to keep it simple.
@@ -55,7 +55,7 @@ export const useFetchSnacks = () => {
        *  Trying to use Redux here to store snacks in reducer
        */
       // .then((res) => {
-      //   dispatch(getSnack(res.data));
+      //   dispatch(setSnackSlice(res.data));
       // })
       .catch((err) => {
         setError(err);

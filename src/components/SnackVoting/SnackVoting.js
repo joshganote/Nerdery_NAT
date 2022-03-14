@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFetchSnacks } from "../../api/useSnacks";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -9,11 +9,8 @@ import TableRow from "@mui/material/TableRow";
 import Grid from "@mui/material/Grid";
 import { GoPlus } from "react-icons/go";
 import { styled, createTheme } from "@mui/material/styles";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { VoteLimitExceeded } from "../../error/errorMessages";
 import { Container } from "@mui/material";
-import { getAllSnacks } from "../../redux/slice/snackSlice";
+//import { getAllSnacks } from "../../redux/slice/snackSlice";
 
 import "./SnackVoting.css";
 
@@ -84,7 +81,7 @@ const BrandCountCell = styled(TableCell)(() => ({
 }));
 
 const SnackVoteContainer = styled(Container)(({ theme }) => ({
-  width: "100px",
+  width: "1000px",
   marginLeft: "auto",
   marginRight: "auto",
   [theme.breakpoints.up("xs")]: {
@@ -101,20 +98,14 @@ const SnackVoteContainer = styled(Container)(({ theme }) => ({
   },
 }));
 
-export const SnackVoting = () => {
+export const SnackVoting = (props) => {
   /**
-   * TODO Redux Documentation
+   * Tried working with actions and from redux to handle the state changes when voting
+   * Wasn't able to get it to working
    */
   // const snackList = useSelector(state => state.snacks);
   // const dispatch = useDispatch();
-
-  const { voteSnacks, postSnackVote, error } = useFetchSnacks();
   const [addToSelection, setAddToSelection] = useState([]);
-  /**
-   * Even though the user only gets 3 votes, Im trying to check for how many votes are left in my POST request.
-   * If I set the default value to 3 then when I add a vote my vote count starts at 2 in my if checker for the POST
-   * request which makes since because it's getting a current shot of that state. Im trying to compensate for that by starting with 4 and subtracting 1. Doubt this is best practice but it'll do for now.
-   */
   const [numOfVotes, setNumOfVotes] = useState(3);
 
   /**
@@ -125,9 +116,9 @@ export const SnackVoting = () => {
    * the snacks array this was the only way I thought I could use in order to increment the votes
    * by one each time it is selected.
    */
-  const snackVote = voteSnacks.filter((x) => x.inStock === 0);
+  const snacksToVoteOn = props.voteSnacks.filter((x) => x.inStock === 0);
 
-  const newSelection = (vote) => {
+  const handleClick = (vote) => {
     if (numOfVotes > 0) {
       setNumOfVotes(numOfVotes - 1);
 
@@ -145,12 +136,16 @@ export const SnackVoting = () => {
    * the user voted for showing the table to the right. This is my attempt to grab that data and check for matching id's.
    * If the id's match then don't show it a second time.
    */
-  const uniqueSnacks = Array.from(new Set(addToSelection.map((a) => a.id))).map(
+  const noDuplicateSnacks = Array.from(new Set(addToSelection.map((a) => a.id))).map(
     (id) => {
-      return voteSnacks.find((a) => a.id === id);
+      return props.voteSnacks.find((a) => a.id === id);
     }
   );
 
+  /**
+   * With more time I could have definitely done a lot more cleanup in this file like putting the MUI Table into a reusable 
+   * component and passing the data into it. I could've have put these styled components in their own file as well.
+   */
   return (
     <SnackVoteContainer>
       <div className="upper-align">
@@ -159,7 +154,7 @@ export const SnackVoting = () => {
           <h2>Vote on the snacks you want to see in this month's rotation</h2>
           <div className="divider"></div>
           <p>{`${numOfVotes}`} Votes Remaining</p>
-          {error !== null && error}
+          {props.error !== null && props.error}
         </div>
       </div>
       <div className="table-section">
@@ -175,7 +170,7 @@ export const SnackVoting = () => {
                         <TableCell></TableCell>
                         <AvailableItemsCount>
                           <div className="circle-count circle-color_1">
-                            {snackVote.length}
+                            {snacksToVoteOn.length}
                           </div>
                         </AvailableItemsCount>
                       </TableRow>
@@ -185,15 +180,15 @@ export const SnackVoting = () => {
                 <TableContainer>
                   <Table aria-label="simple table">
                     <TableBody>
-                      {snackVote.map((vote) => (
-                        <AvailableItemsRow key={vote.id}>
+                      {snacksToVoteOn.map((vote, index) => (
+                        <AvailableItemsRow key={index}>
                           <div className="plus-icon">
                             <TableCell>
                               <GoPlus
                                 color="white"
                                 size={25}
-                                onClick={() => postSnackVote(vote, numOfVotes)}
-                                onClickCapture={() => newSelection(vote)}
+                                onClick={() => props.postSnackVote(vote, numOfVotes)}
+                                onClickCapture={() => handleClick(vote)}
                               />
                             </TableCell>
                           </div>
@@ -229,12 +224,12 @@ export const SnackVoting = () => {
                 <TableContainer>
                   <Table sx={{ minWidth: 250 }} aria-label="simple table">
                     <TableBody>
-                      {uniqueSnacks.map((vote) => (
-                        <TableRow key={vote.id} sx={{ border: 0 }}>
+                      {noDuplicateSnacks.map((snack, index) => (
+                        <TableRow key={index} sx={{ border: 0 }}>
                           <BrandCountCell sx={{ padding: 0 }}>
                             <div className="brand-vote align_2">
-                              <p>{vote.brand}</p>
-                              <p>{vote.votes}</p>
+                              <p>{snack.brand}</p>
+                              <p>{snack.votes}</p>
                             </div>
                           </BrandCountCell>
                         </TableRow>
@@ -250,36 +245,3 @@ export const SnackVoting = () => {
     </SnackVoteContainer>
   );
 };
-
-// let testArr = [];
-// testArr = [...testArr, addVote]
-// console.log(addVote, 'selections')
-// let testArr = [];
-// testArr.push(addVote)
-// console.log('test Array', testArr);
-// console.log('snack', snackData);
-
-// console.log(selections, 'yaaaaa')
-
-// const handle = (vote) => {
-//   if (vote.votes < snackVote) {
-//   }
-// };
-
-// const test = voteSnacks.find((t) => t.votes +1);
-// console.log(test)
-// useEffect(() => {
-//   const test = voteSnacks.find((t) => t.votes + 1);
-//   console.log(test)
-// }, [voteSnacks])
-// setAddToSelection(state => [...state, test])
-
-// const test = voteSnacks.find((t) => t.votes +1);
-//   if(test) {
-//     setAddToSelection(() => prev => [...prev, test])
-//   }
-
-// const newSelection = () => {
-//   setAddToSelection(snackVote);
-//   console.log(addToSelection);
-// };

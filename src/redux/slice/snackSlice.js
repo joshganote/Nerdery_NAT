@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+/**
+ * I wanted to use this reducer to collect all the snacks coming in from the api request
+ */
+const initialState = [{
   id: "",
   brand: "",
   product: "",
@@ -8,7 +11,7 @@ const initialState = {
   image: "",
   votes: 0,
   inStock: 0,
-};
+}];
 
 const snack = createSlice({
   name: "snack",
