@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  CurrentSnackContainer,
-  CurrentSnackImg,
-  CurrentSnackBox,
-} from "../SnackVote/SnackVoteStyled";
 
-import "./snack.css";
+import "./CurrentSnack.css";
 
-export const SnackVote = (props) => {
+export const CurrentSnack = (props) => {
   /**
    * Thought I would try and show an example of a "dumb component" 
    * to help render the current selections
