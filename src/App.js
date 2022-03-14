@@ -1,11 +1,8 @@
-import { CurrentSelections } from "./components/CurrentSelections/CurrentSelections";
-import { SnackVoting } from "./components/SnackVoting/SnackVoting";
-import { Maintenance } from "./components/Maintenance/Maintenance";
-import { useFetchSnacks } from "./api/useSnacks";
+import { SnackHome } from "./components/SnackHome/SnackHome";
+
 import "./App.css";
 
 function App() {
-  const { voteSnacks } = useFetchSnacks();
   return (
     <>
       <div className="u-isHidden">
@@ -115,14 +112,7 @@ function App() {
               </div>
             </div>
           </div>
-          {voteSnacks.length ? (
-            <>
-            <CurrentSelections />
-            <SnackVoting />
-            </>
-          ) : (
-            <Maintenance />
-          )}
+          <SnackHome />
           <div className="site-bd-section site-bd-section_gray">
             <div className="u-constrainer">
               <div className="layoutPanel">

@@ -4,7 +4,7 @@ import "./CurrentSnack.css";
 
 export const CurrentSnack = (props) => {
   /**
-   * Thought I would try and show an example of a "dumb component" 
+   * Thought I would try and show an example of a reusable component 
    * to help render the current selections
    */
   return (
