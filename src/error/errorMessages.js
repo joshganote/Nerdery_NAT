@@ -7,7 +7,7 @@ export const VoteLimitExceeded = () => {
    * Im sure this solution won't be entirely correct. Not sure if it's worth going into storing todays date
    * letting a month pass, clearing the previous month and updating it with the new one but you get the point.. ha
    */
-   let nextMonth = addMonths(new Date(), 1).toLocaleDateString();
+  let nextMonth = addMonths(new Date(), 1).toLocaleDateString();
   return (
     <>
       <p>We love that you are excited about the upcoming snack selections!</p>
@@ -21,11 +21,9 @@ export const DuplicateSnackSelection = () => {
    * Would use an error message similar to how I implemented the one above if I could've figured
    * out how to conditionally render the selection table list without duplicate votes being counted.
    */
-   let nextMonth = addMonths(new Date(), 1).toLocaleDateString();
   return (
     <>
-      <p>We love that you are excited about the upcoming snack selections!</p>
-      <p>You will need to come back on {`${nextMonth}`} to vote again.</p>
+      <p>You've already selected that one. Please pick another!</p>
     </>
   );
 };
